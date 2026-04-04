@@ -68,6 +68,8 @@ class SmImputer(BaseImputer):
     def _preprocess_blocks_gdf(self, blocks_gdf):
         blocks_gdf = blocks_gdf.copy()
         gdf = super()._preprocess_blocks_gdf(blocks_gdf)
+        gdf['fsi'] = blocks_gdf['fsi']
+        gdf['gsi'] = blocks_gdf['gsi']
         extra_columns = [*self.additional_cols, SITE_AREA_COLUMN]
         gdf[extra_columns] = blocks_gdf[extra_columns]
         return gdf
@@ -78,12 +80,11 @@ class SmImputer(BaseImputer):
     
     def _impute(self, known_gdf : gpd.GeoDataFrame, unknown_gdf : gpd.GeoDataFrame):
 
-        features_cols = self.features_cols
         additional_cols = self.additional_cols
         classifier_cols = [SITE_AREA_COLUMN, *additional_cols]
         
-        sm_df, clusters_df = self._spacematrix(known_gdf[features_cols])
-        classifier = CatBoostClassifier(verbose=False)
+        sm_df, clusters_df = self._spacematrix(known_gdf)
+        classifier = CatBoostClassifier(verbose=False, allow_writing_files=False)
         classifier.fit(known_gdf[classifier_cols], sm_df[CLUSTER_COLUMN])
         
         probs = classifier.predict_proba(unknown_gdf[classifier_cols])
@@ -99,4 +100,4 @@ class SmImputer(BaseImputer):
         unknown_gdf['fsi'] = fsi_weighted
         unknown_gdf['gsi'] = gsi_weighted
 
-        return unknown_gdf[features_cols].copy()
+        return unknown_gdf[['fsi', 'gsi']].copy()
