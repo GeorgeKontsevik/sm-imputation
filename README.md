@@ -1,5 +1,7 @@
 # sm_imputation
 
+[![OSA-improved](https://img.shields.io/badge/improved%20by-OSA-yellow)](https://github.com/aimclub/OSA)
+
 Spacematrix imputation experiments: baselines, model checks, and visual diagnostics for filling missing urban morphology values.
 
 ## System Map
@@ -36,3 +38,4 @@ See `paper.pdf`.
 ## Next Steps / Heuristics
 
 Heuristic: aggregate score alone is not enough. Keep metric tables and visual residual checks together.
+
