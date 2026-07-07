@@ -1,19 +1,21 @@
 # sm_imputation
 
-Spacematrix imputation experiments and baselines.
+Spacematrix imputation experiments: baselines, model checks, and visual diagnostics for filling missing urban morphology values.
 
-## Scheme
+## System Map
 
 ```mermaid
 flowchart LR
-    A[Inputs] --> B[Run: examples/experiment.ipynb]
-    B --> C[Checked outputs]
-    C --> D[Paper / thesis use]
+    RAW[observed spacematrix] --> SPLIT[train/test split]
+    SPLIT --> BASE[simple baselines]
+    SPLIT --> MODEL[imputation model]
+    BASE --> COMPARE[metrics + plots]
+    MODEL --> COMPARE
 ```
 
 ## Main Result
 
-![Main result](examples/images/results.png)
+![Imputation results](examples/images/results.png)
 
 ## Run
 
@@ -25,9 +27,7 @@ Human:
 pip install -r requirements.txt && jupyter notebook examples/experiment.ipynb
 ```
 
-Agent:
-
-Compare against simple baselines before adding imputation complexity.
+Agent: compare against simple baselines before adding imputation complexity, and inspect visual diagnostics alongside metrics.
 
 ## Publication
 
@@ -35,4 +35,4 @@ See `paper.pdf`.
 
 ## Next Steps / Heuristics
 
-Heuristic: keep metrics and visual checks together; do not trust aggregate score alone.
+Heuristic: aggregate score alone is not enough. Keep metric tables and visual residual checks together.
