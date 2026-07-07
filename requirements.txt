@@ -1,5 +1,16 @@
 blocksnet[ipynb, torch]==1.0.0.a9
 catboost
 contextily
-seaborn
 esda
+geopandas==1.1.4
+libpysal==4.15.0
+matplotlib==3.11.0
+numpy==2.5.1
+osmnx==2.1.0
+pandas==3.0.3
+pyproj==3.7.2
+scikit_learn==1.9.0
+scipy==1.18.0
+seaborn
+Shapely==2.1.2
+tqdm==4.68.4
